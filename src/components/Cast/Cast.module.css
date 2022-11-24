@@ -1,0 +1,19 @@
+.actorList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  list-style: none;
+}
+.listIem {
+  padding: 10px;
+  width: 200px;
+  background-color: rgb(171, 255, 227);
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+.foto {
+  border-radius: 5px;
+  width: 100px;
+  margin-left: 25%;
+}
