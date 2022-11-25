@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchByQuery } from 'components/fetchFunc/fetchFunc';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,14 +13,14 @@ const Movies = () => {
   const { pathname, search } = useLocation();
   const from = `${pathname}${search}`;
 
-  useEffect(() => {
-    if (!searchQuery) {
-      setSearchParams({});
-      return;
-    }
-    fetchByQuery(searchQuery).then(data => setQueryArr(data.data.results));
-    setSearchquery('');
-  }, []);
+  // useEffect(() => {
+  //   if (!searchQuery) {
+  //     setSearchParams({});
+  //     return;
+  //   }
+  //   fetchByQuery(searchQuery).then(data => setQueryArr(data.data.results));
+  //   setSearchquery('');
+  // }, []);
 
   const handleQueryChange = e => {
     const query = e.currentTarget.value.toLowerCase();
