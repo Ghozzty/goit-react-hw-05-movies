@@ -1,0 +1,9 @@
+.title {
+  text-align: center;
+}
+.trendList {
+  margin-left: 25%;
+}
+.trendItem:not(:last-child) {
+  margin-bottom: 10px;
+}

@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { fetchMovieById } from '../fetchFunc/fetchFunc';
+import { fetchMovieById } from '../../components/fetchFunc/fetchFunc';
 //
 import css from './MovieDetails.module.css';
-import placeholder from './placeholder3.jpg';
+import placeholder from './placeholder.jpg';
 import noInfo from './no-info.jpg';
+import PropTypes from 'prop-types';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -37,7 +38,9 @@ const MovieDetails = () => {
 
   return answer ? (
     <main className={css.wrapper}>
-      <Link to={from}>Back</Link>
+      <Link to={from} className={css.backBtn}>
+        Back
+      </Link>
       <div className={css.filmWrapper}>
         <img
           src={poster_path ? baseUrlImg + poster_path : placeholder}
@@ -61,24 +64,52 @@ const MovieDetails = () => {
       </div>
       <section>
         <h3>Additional information</h3>
-        <ul>
+        <ul className={css.linkList}>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={{ ...state }}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={{ ...state }}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </section>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </main>
   ) : (
-    <>
-      <Link to={from}>Back</Link>
+    <div className={css.placeholder}>
+      <Link to={from} className={css.backBtn}>
+        Back
+      </Link>
       <div>Sorry, no info</div>
       <img src={noInfo} alt="placeholder" width={500} />
-    </>
+    </div>
   );
 };
 
 export default MovieDetails;
+
+MovieDetails.propTypes = {
+  fetchMovieById: PropTypes.func,
+  currentMovie: PropTypes.arrayOf(
+    PropTypes.exact({
+      movieId: PropTypes.number,
+      title: PropTypes.string,
+      poster_path: PropTypes.string,
+      vote_average: PropTypes.number,
+      release_date: PropTypes.string,
+      overview: PropTypes.string,
+    })
+  ),
+  genres: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    })
+  ),
+};

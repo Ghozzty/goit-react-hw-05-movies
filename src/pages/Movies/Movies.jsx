@@ -1,26 +1,25 @@
 import { useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchByQuery } from 'components/fetchFunc/fetchFunc';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
+import css from './Movies.module.css';
+import PropTypes from 'prop-types';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchquery] = useState(
-    () => searchParams.get('qwery') || ''
-  );
+  const [searchQuery, setSearchquery] = useState('');
   const [queryArr, setQueryArr] = useState([]);
 
   const { pathname, search } = useLocation();
   const from = `${pathname}${search}`;
 
-  // useEffect(() => {
-  //   if (!searchQuery) {
-  //     setSearchParams({});
-  //     return;
-  //   }
-  //   fetchByQuery(searchQuery).then(data => setQueryArr(data.data.results));
-  //   setSearchquery('');
-  // }, []);
+  const hasQuery = searchParams.get('qwery');
+
+  useEffect(() => {
+    if (hasQuery) {
+      fetchByQuery(hasQuery).then(data => setQueryArr(data.results));
+    }
+  }, [hasQuery]);
 
   const handleQueryChange = e => {
     const query = e.currentTarget.value.toLowerCase();
@@ -36,21 +35,22 @@ const Movies = () => {
     }
 
     fetchByQuery(searchQuery).then(data => {
-      if (data.status !== 200 || !data.data.total_results) {
+      if (!data.total_results) {
         setSearchParams({});
         return console.log('ouuch');
       }
 
-      setQueryArr(data.data.results);
+      setQueryArr(data.results);
+      setSearchParams({ qwery: searchQuery });
     });
-    setSearchParams({ qwery: searchQuery });
+
     setSearchquery('');
     e.target.reset();
   };
 
   return (
     <>
-      <header>
+      <section className={css.form}>
         <form onSubmit={handleSubmit}>
           <input
             value={searchQuery}
@@ -59,16 +59,17 @@ const Movies = () => {
             autoComplete="off"
             autoFocus
             placeholder="Search films"
+            className={css.input}
           />
-          <button type="submit">
+          <button type="submit" className={css.btn}>
             <span>Search</span>
           </button>
         </form>
-      </header>
+      </section>
       {queryArr.length ? (
         <ul>
           {queryArr.map(({ id, title, original_name }) => (
-            <li key={id}>
+            <li key={id} className={css.linkItem}>
               <Link to={`/movies/${id}`} state={{ from: from }}>
                 {title || original_name}
               </Link>
@@ -76,9 +77,20 @@ const Movies = () => {
           ))}
         </ul>
       ) : (
-        <div>set query</div>
+        <div></div>
       )}
     </>
   );
 };
 export default Movies;
+
+Movies.propTypes = {
+  fetchByQuery: PropTypes.func,
+  queryArr: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      original_name: PropTypes.string,
+    })
+  ),
+};

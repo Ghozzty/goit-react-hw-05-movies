@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import css from './SharedLayout.module.css';
 
 export const SharedLayout = () => {
   return (
     <div>
-      <header>
+      <header className={css.header}>
         <nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/Movies">Movies</NavLink>

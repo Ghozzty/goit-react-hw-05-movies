@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import css from './Cast.module.css';
 import placeholder from './actor-placeholder.jpg';
+import PropTypes from 'prop-types';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -38,3 +39,12 @@ const Cast = () => {
 };
 
 export default Cast;
+
+Cast.propTypes = {
+  movieId: PropTypes.number,
+  id: PropTypes.number,
+  fetchCast: PropTypes.func,
+  profile_path: PropTypes.string,
+  name: PropTypes.string,
+  character: PropTypes.string,
+};

@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+}
+.filmWrapper {
+  display: flex;
+  gap: 30px;
+}
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.backBtn {
+  border: 1px solid grey;
+  width: 50px;
+  text-align: center;
+  margin-right: auto;
+}
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}

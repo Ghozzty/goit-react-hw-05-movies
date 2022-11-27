@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'components/fetchFunc/fetchFunc';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -29,3 +30,11 @@ const Reviews = () => {
 };
 
 export default Reviews;
+
+Reviews.propTypes = {
+  movieId: PropTypes.number,
+  id: PropTypes.number,
+  fetchReviews: PropTypes.func,
+  content: PropTypes.string,
+  author: PropTypes.string,
+};
