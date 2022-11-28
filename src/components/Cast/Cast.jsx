@@ -25,7 +25,7 @@ const Cast = () => {
   }, [movieId]);
 
   const baseUrlImg = 'https://image.tmdb.org/t/p/original';
-  console.log(status);
+
   return (
     <>
       {status === 'pending' && <Loader />}
