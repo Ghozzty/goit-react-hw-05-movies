@@ -66,7 +66,7 @@ const Movies = () => {
           </button>
         </form>
       </section>
-      {queryArr.length ? (
+      {queryArr && (
         <ul>
           {queryArr.map(({ id, title, original_name }) => (
             <li key={id} className={css.linkItem}>
@@ -76,8 +76,6 @@ const Movies = () => {
             </li>
           ))}
         </ul>
-      ) : (
-        <div></div>
       )}
     </>
   );

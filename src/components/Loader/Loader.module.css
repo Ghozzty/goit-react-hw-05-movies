@@ -1,0 +1,14 @@
+.spiner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 15px;
+}
+.spinerItem {
+  margin: auto;
+}
+.title {
+  font-size: 20px;
+  margin-top: 10px;
+}
